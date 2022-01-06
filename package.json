@@ -1,0 +1,29 @@
+{
+  "name": "relationalblog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kosvi/HY_relationalblog.git"
+  },
+  "author": "Ville Koskela",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kosvi/HY_relationalblog/issues"
+  },
+  "homepage": "https://github.com/kosvi/HY_relationalblog#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.5"
+  }
+}
