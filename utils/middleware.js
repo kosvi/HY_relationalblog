@@ -9,6 +9,9 @@ const errorHandler = (error, req, res, next) => {
   if (error.name === 'SequelizeEmptyResultError') {
     return res.status(404).json({ error: 'not found' })
   }
+  if (error.name === 'SequelizeDatabaseError') {
+    return res.status(500).json({ error: 'something went wrong with the database' })
+  }
   if (error.name === 'Error') {
     return res.status(400).json({ error: error.message })
   }
