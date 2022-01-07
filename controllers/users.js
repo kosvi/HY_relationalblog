@@ -22,4 +22,12 @@ userRouter.put('/:username', async (req, res) => {
   res.json(user)
 })
 
+userRouter.get('/me', async (req, res) => {
+  if (!req.userId) {
+    throw new Error('not logged in')
+  }
+  const user = await User.findOne({ where: { id: req.userId }, rejectOnEmpty: true })
+  res.json(user)
+})
+
 module.exports = userRouter

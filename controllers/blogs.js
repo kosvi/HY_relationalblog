@@ -1,20 +1,26 @@
 const blogsRouter = require('express').Router()
-const { Blog } = require('../models')
+const { Blog, User } = require('../models')
+const { authenticate } = require('../utils/middleware')
 
 blogsRouter.get('/', async (req, res) => {
   const blogs = await Blog.findAll()
   res.json(blogs)
 })
 
-blogsRouter.post('/', async (req, res) => {
-  const blog = await Blog.create(req.body)
+blogsRouter.post('/', authenticate, async (req, res) => {
+  const user = await User.findByPk(req.decodedToken.id, { rejectOnEmpty: true })
+  const blog = await Blog.create({ ...req.body, userId: user.id })
   res.json(blog)
 })
 
-blogsRouter.delete('/:id', async (req, res) => {
+blogsRouter.delete('/:id', authenticate, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id)
   if (blog) {
-    await blog.destroy()
+    if (blog.userId !== req.decodedToken.id) {
+      res.status(403).json({ error: 'Forbidden' })
+    } else {
+      await blog.destroy()
+    }
   }
   res.status(204).end()
 })
