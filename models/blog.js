@@ -22,7 +22,20 @@ Blog.init({
   likes: {
     type: DataTypes.INTEGER,
     defaultValue: 0
-  }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    validate: {
+      min: {
+        args: 1991,
+        msg: 'Only blogs from internet allowed!'
+      },
+      max: {
+        args: new Date().getFullYear(),
+        msg: 'Are you from future?'
+      }
+    }
+  },
 }, {
   sequelize,
   underscored: true,
