@@ -4,20 +4,20 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpb
 
 {
   "author": "Sensei Luukkainen",
-  "title": "Senseis wisdom, part3",
-  "url": "http://sensei3.codecache.eu",
-  "likes": 2
+  "title": "Senseis wisdom, part2",
+  "url": "http://sensei2.codecache.eu",
+  "likes": 10
 }
 
 ###
 
 POST http://localhost:3001/api/blogs 
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpbGxlQGV4YW1wbGUuY29tIiwibmFtZSI6IlZpbGxlIiwiaWQiOjEsImlhdCI6MTY0MTY2Nzg5NH0.6y9pJlipDjPRbQ68mQTCgqyxOyxA4SSHX_pDPK7Bzgo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpbGxlMkBleGFtcGxlLmNvbSIsIm5hbWUiOiJWaWxsZSIsImlkIjoyLCJkaXNhYmxlZCI6ZmFsc2UsImlhdCI6MTY0MTc1NTI5NH0.Rmc4RslStQBbb6rwVxlAwYGGl4WhywKXcfkft9JVDFs
 
 {
   "author": "Pekka Päkä",
-  "title": "Pekan horinat!",
-  "url": "http://pekka.codecache.eu",
-  "year": 2022
+  "title": "Pekan horinat! osa2",
+  "url": "http://pekka2.codecache.eu",
+  "year": 2021
 }

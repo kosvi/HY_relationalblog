@@ -2,6 +2,7 @@ const userRouter = require('express').Router()
 const { Op } = require('sequelize')
 
 const { User, Blog, Reading } = require('../models')
+const { authenticate } = require('../utils/middleware')
 
 userRouter.get('/', async (req, res) => {
   const users = await User.findAll({ include: { model: Blog } })
@@ -20,6 +21,14 @@ userRouter.put('/:username', async (req, res) => {
   }
   user.name = req.body.name
   user.save()
+  res.json(user)
+})
+
+userRouter.get('/me', authenticate, async (req, res) => {
+  if (!req.decodedToken.id) {
+    throw new Error('not logged in')
+  }
+  const user = await User.findOne({ where: { id: req.decodedToken.id }, rejectOnEmpty: true })
   res.json(user)
 })
 
@@ -48,12 +57,5 @@ userRouter.get('/:id', async (req, res) => {
   res.json(user)
 })
 
-userRouter.get('/me', async (req, res) => {
-  if (!req.userId) {
-    throw new Error('not logged in')
-  }
-  const user = await User.findOne({ where: { id: req.userId }, rejectOnEmpty: true })
-  res.json(user)
-})
 
 module.exports = userRouter

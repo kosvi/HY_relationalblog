@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const { Session, User } = require('../models')
 const { SECRET } = require('./config')
 
 const errorHandler = (error, req, res, next) => {
@@ -25,7 +26,19 @@ const authenticate = async (req, res, next) => {
     try {
       const token = jwt.verify(auth.substring(7), SECRET)
       if (token && token.id) {
-        req.decodedToken = token
+        const user = await User.findByPk(token.id, { rejectOnEmpty: true })
+        if (user.disabled) {
+          // user disabled -> delete all sessions
+          await Session.destroy({ where: { userId: token.id } })
+          res.status(403).json({ error: 'account disabled' })
+        }
+        const session = await Session.findOne({ where: { token: auth.substring(7) } })
+        if (!session) {
+          res.status(403).json({ error: 'token expired' })
+          throw new Error()
+        } else {
+          req.decodedToken = token
+        }
       }
     } catch (error) {
       console.log('Authenticate: ', error)
